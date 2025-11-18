@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Café Andino Export - Business Intelligence Project</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .navbar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #8B4513, #D2691E);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #8B4513;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 2rem 2rem;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .section {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .section:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #8B4513, #D2691E);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-icon {
+            font-size: 3rem;
+        }
+
+        .project-header h3 {
+            font-size: 1.8rem;
+            color: #8B4513;
+        }
+
+        .project-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #f0f0f0;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .tech-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tech-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #667eea;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .result-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .result-card p {
+            font-size: 1rem;
+            opacity: 0.95;
+        }
+
+        .architecture {
+            background: #f8f9fa;
+            padding: 3rem;
+            border-radius: 20px;
+            margin-top: 2rem;
+        }
+
+        .architecture-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .flow-item {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .flow-arrow {
+            font-size: 2rem;
+            color: #667eea;
+        }
+
+        .contact {
+            text-align: center;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: transform 0.3s;
+            font-weight: 500;
+        }
+
+        .contact-link:hover {
+            transform: translateY(-3px);
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .content-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 1.5rem 0;
+        }
+
+        .code-block {
+            background: #f5f5f5;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            border-left: 4px solid #8B4513;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #8B4513;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .details-section {
+            margin-bottom: 3rem;
+        }
+
+        .details-section h3 {
+            color: #8B4513;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .details-section h4 {
+            color: #8B4513;
+            margin: 1.5rem 0 0.8rem;
+            font-size: 1.4rem;
+        }
+
+        .details-section p {
+            margin-bottom: 1rem;
+        }
+
+        .details-section ul, .details-section ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .details-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .architecture-flow {
+                flex-direction: column;
+            }
+            
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="logo">
+                ☕ Café Andino Export
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Inicio</a></li>
+                <li><a href="#project">Proyecto</a></li>
+                <li><a href="#details">Detalles</a></li>
+                <li><a href="#tech">Tecnologías</a></li>
+                <li><a href="#results">Resultados</a></li>
+                <li><a href="#contact">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>☕ Business Intelligence para Café Andino Export</h1>
+            <p>Solución Cloud con Microsoft Fabric y Power BI para el monitoreo estratégico de exportaciones</p>
+            <a href="#project" class="btn">Ver Proyecto</a>
+        </div>
+    </section>
+
+    <section id="project" class="section">
+        <div class="container">
+            <h2 class="section-title">Proyecto Principal</h2>
+            
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">📊</div>
+                    <div>
+                        <h3>Sistema de Inteligencia de Mercado</h3>
+                        <p>Integración y automatización de datos de exportación</p>
+                    </div>
+                </div>
+
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <span>📅</span>
+                        <span>2025</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>🏢</span>
+                        <span>Café Andino Export SAC</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>📍</span>
+                        <span>Cajamarca, Perú</span>
+                    </div>
+                </div>
+
+                <h4 style="margin-top: 2rem; margin-bottom: 1rem; color: #8B4513;">🎯 Descripción del Proyecto</h4>
+                <p style="margin-bottom: 1rem;">
+                    Empresa cajamarquina fundada en 2000, dedicada a la producción y comercialización internacional 
+                    de café tostado Arábica-Caturra hacia cadenas hoteleras de la costa oeste de Estados Unidos.
+                </p>
+
+                <h4 style="margin-top: 2rem; margin-bottom: 1rem; color: #8B4513;">📈 KPI Principal</h4>
+                <p style="margin-bottom: 1rem;">
+                    <strong>Indicador Mensual de Porcentaje de Participación:</strong> Mide la proporción de toneladas 
+                    de café Arábica-Caturra exportadas por Café Andino Export respecto al total nacional (Perú), 
+                    expresado en porcentaje.
+                </p>
+
+                <h4 style="margin-top: 2rem; margin-bottom: 1rem; color: #8B4513;">🎯 Objetivos</h4>
+                <ul style="margin-left: 2rem; margin-bottom: 1rem;">
+                    <li>✅ Integrar fuentes de datos de exportación (propias y MINAGRI)</li>
+                    <li>✅ Automatizar procesos ETL con Microsoft Fabric y Python</li>
+                    <li>✅ Diseñar Data Warehouse optimizado para análisis</li>
+                    <li>✅ Desarrollar modelo de datos robusto y escalable</li>
+                    <li>✅ Generar dashboards ejecutivos en Power BI</li>
+                </ul>
+            </div>
+
+            <div class="architecture">
+                <h3 style="text-align: center; margin-bottom: 2rem; color: #333;">🏗️ Arquitectura Cloud</h3>
+                <div class="architecture-flow">
+                    <div class="flow-item">
+                        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📊</div>
+                        <h4>Data Sources</h4>
+                        <p>Datos internos + MINAGRI</p>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">
+                        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">💾</div>
+                        <h4>SQL Database</h4>
+                        <p>Almacenamiento estructurado</p>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">
+                        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">⚙️</div>
+                        <h4>ETL Fabric</h4>
+                        <p>Pipelines + Python</p>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">
+                        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🏢</div>
+                        <h4>Data Warehouse</h4>
+                        <p>Modelo dimensional</p>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">
+                        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📈</div>
+                        <h4>Power BI</h4>
+                        <p>Dashboards ejecutivos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="details" class="section">
+        <div class="container">
+            <h2 class="section-title">Detalles del Proyecto</h2>
+            
+            <div class="project-card">
+                <div class="details-section">
+                    <h3>📌 Descripción y contexto de la empresa</h3>
+                    <p>"Café Andino Export es una empresa cajamarquina fundada en el año 2000, dedicada a la producción y comercialización internacional de café tostado, sin descafeinar, molido, de la especie Arábica, siendo sus principales consumidores son cadenas de hoteles de la costa oeste de Estados Unidos; con la visión es ser uno de los principales líderes en exportaciones de café a nivel mundial.</p>
+                    
+                    <p>Este indicador mide la participación de Café Andino Export SAC en las exportaciones nacionales de la variedad Caturra de café Arábico, tostado, molido y sin descafeinar. La presentación del producto exportado es la solicitada internacionalmente (sacos de 60 kilogramos).</p>
+                    
+                    <p>La relación de la proporción está definida como "Toneladas de café Arábico-Caturra tostado, molido, sin descafeinar exportadas mensualmente por la empresa Café Andino Export S.A.C" entre las "Toneladas de café Arábico-Caturra, tostado, molido, sin descafeinar exportadas mensualmente por el Perú" (dato publicado periódicamente por el Ministerio de Agricultura) expresado de manera porcentual. Siendo esta, una métrica clave para monitorear su posicionamiento dentro del sector cafetalero exportador."</p>
+                </div>
+
+                <div class="details-section">
+                    <h3>Objetivos del Proyecto</h3>
+                    <ul>
+                        <li><strong>Integrar Fuentes de Datos de Exportación:</strong> Unificar la información de las exportaciones de café (propia y nacional del MINAGRI) proveniente de múltiples fuentes (sistemas internos, archivos externos, APIs gubernamentales).</li>
+                        <li><strong>Implementar la Automatización de Datos (ETL):</strong> Automatizar los procesos de extracción, transformación y carga (ETL) de los datos de exportación y su métrica de participación con Microsoft Fabric (o similar, como Azure Data Factory/Synapse), utilizando Python para transformaciones complejas, asegurando la calidad y periodicidad requerida.</li>
+                        <li><strong>Diseñar y Consolidar un Data Warehouse:</strong> Construir y documentar un Data Warehouse corporativo (que incluya código SQL para la creación de esquemas y tablas) optimizado para el cálculo del indicador clave ("INDICADOR MENSUAL DE PORCENTAJE DE PARTICIPACIÓN DE CAFÉ ANDINO EXPORT SAC EN LAS EXPORTACIONES NACIONALES DE LA VARIEDAD CATURRA DE CAFÉ ARÁBICO, TOSTADO, MOLIDO Y SIN DESCAFEINAR").</li>
+                        <li><strong>Desarrollar un Modelo de Datos de Negocio:</strong> Crear un modelo de datos robusto y escalable (incluyendo documentación de relaciones y medidas DAX) dentro del Data Warehouse/Power BI para respaldar el análisis confiable y estandarizado del posicionamiento.</li>
+                        <li><strong>Generar Inteligencia de Posicionamiento (KPIs):</strong> Diseñar y entregar un conjunto de reportes y un dashboard en Power BI que visualicen la evolución del KPI de participación en las exportaciones nacionales (con su business case y definición formal).</li>
+                        <li><strong>Optimizar la Gestión Operacional de Datos:</strong> Evaluar la implementación de PowerApps para la captura o validación operativa de datos que impacten directamente el cálculo de la métrica de exportación.</li>
+                    </ul>
+                </div>
+
+                <div class="details-section">
+                    <h3>✨ Resultados Clave</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Categoría</th>
+                                    <th>Resultado Específico</th>
+                                    <th>Beneficio Estratégico</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Monitoreo Estratégico</strong></td>
+                                    <td><strong>Visibilidad del KPI de Posicionamiento:</strong> Reportes en Power BI que muestran la participación en las exportaciones de café Caturra, actualizados automáticamente.</td>
+                                    <td>Permite a la gerencia reaccionar rápidamente a los cambios del mercado y ajustar las estrategias de venta en la costa oeste de EE. UU. para <strong>alcanzar su visión de liderazgo global</strong>.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Eficiencia Operacional (ETL)</strong></td>
+                                    <td><strong>Reducción del Tiempo de Cálculo del Indicador:</strong> Procesos ETL (Dataflows/Pipelines) automatizados en <strong>Microsoft Fabric y Python</strong>.</td>
+                                    <td>Se elimina la dependencia de la recopilación y el cálculo manual de datos (tanto internos como del MINAGRI), liberando tiempo del personal clave para el <strong>análisis, no para el procesamiento</strong>.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Calidad y Consistencia del Dato</strong></td>
+                                    <td><strong>Fuente Única de Verdad (Data Warehouse):</strong> Un modelo de datos centralizado y documentado.</td>
+                                    <td>Asegura que todas las decisiones sobre exportación se basen en cifras validadas y consistentes, eliminando las disputas sobre <strong>qué tan "líderes" son realmente</strong>.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Gestión Operativa</strong></td>
+                                    <td><strong>Agilidad en la Corrección de Datos:</strong> Implementación potencial de <strong>PowerApps</strong> para la gestión ágil de registros operativos.</td>
+                                    <td>Capacidad para ingresar o corregir rápidamente datos primarios (ej. lotes de exportación), garantizando que el KPI refleje la <strong>situación real del mes en curso</strong> sin demoras.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="details-section">
+                    <h3>☁️ Solución de Negocio Cloud con Microsoft Fabric y Power BI</h3>
+                    <p>El proyecto de Café Andino Export implementa una solución robusta de Inteligencia de Mercado diseñada para integrar las cifras internas de exportación con la data nacional (MINAGRI). El objetivo es automatizar de manera eficiente el cálculo de su indicador clave de participación, proporcionando una base de datos confiable y escalable para la toma de decisiones estratégicas. Esta arquitectura se centra en garantizar la precisión de la métrica que define su camino hacia el liderazgo global.</p>
+                    
+                    <h4>Componentes Clave de la Arquitectura:</h4>
+                    <ul>
+                        <li><strong>🧱 Microsoft Fabric Warehouse y Data Factory:</strong> El motor principal. Se encarga de la ingestión de datos (internos y externos), su rigurosa transformación (incluyendo automatizaciones en Python) y la consolidación. Su función es calcular la proporción exacta de exportación de Café Andino Export frente al total nacional.</li>
+                        <li><strong>⚙️ Bases de Datos Estructuradas (SQL):</strong> El repositorio de origen para los datos internos de Café Andino (volúmenes de Caturra, fechas de envío, etc.). Garantiza que los datos de la empresa sean registrados con estructura y calidad, listos para ser consumidos por Fabric.</li>
+                        <li><strong>📊 Power BI:</strong> La cara del proyecto. Se utiliza para el análisis de la información de negocio y, crucialmente, para la creación del Dashboard de Posicionamiento Competitivo. Aquí es donde el KPI de participación se visualiza de forma clara y accionable para la gerencia.</li>
+                    </ul>
+                </div>
+
+                <div class="details-section">
+                    <h3>🧰 Solución Tecnológica</h3>
+                    <p>Este proyecto implementa una solución de Inteligencia de Negocio y Benchmarking de Mercado robusta, utilizando herramientas de Microsoft enfocadas en la centralización, procesamiento y visualización de datos:</p>
+                    
+                    <ul>
+                        <li><strong>🧱 Microsoft Fabric:</strong> Permite la integración, Transformación y Consolidación de Datos (ETL/ELT): Centraliza la data interna y externa (MINAGRI) y ejecuta la lógica de negocio, incluyendo las automatizaciones en Python, para calcular el KPI de participación.</li>
+                        <li><strong>⚙️ Bases de Datos SQL:</strong> Permite el almacenamiento Estructurado y Confiable: Repositorio de alto rendimiento para los datos transaccionales internos de Café Andino Export, asegurando una fuente de origen limpia.</li>
+                        <li><strong>📊 Power BI:</strong> Permite el análisis Interactivo y Visualizaciones Estratégicas: Capa de presentación para el dashboard de Posicionamiento Competitivo y el análisis del KPI de participación, facilitando la toma de decisiones gerenciales.</li>
+                    </ul>
+                </div>
+
+                <div class="details-section">
+                    <h3>📐 Modelo de Datos en Azure SQL</h3>
+                    <img src="media/image3.png" alt="Modelo de datos en Azure SQL" class="content-image">
+                </div>
+
+                <div class="details-section">
+                    <h3>💾 CAPA DE DATOS</h3>
+                    <p>La Capa de Datos constituye la fuente de verdad estructurada para el proyecto, alojando tanto los registros transaccionales internos de Café Andino Export como los datos de mercado consolidados (MINAGRI). Su diseño relacional optimiza la integridad y el consumo eficiente por parte de la Capa ETL (Microsoft Fabric).</p>
+                    
+                    <h4>1. Documentación del Código SQL</h4>
+                    <p>El modelo de datos se implementa en una base de datos relacional (SQL) bajo el esquema DVG2. La documentación asociada es la siguiente:</p>
+                    
+                    <h4>A. Creación de Tablas (CREATE TABLE)</h4>
+                    <p>El código DDL (Data Definition Language) de cada una de las 16 tablas del esquema ha sido generado y se adjunta. Este código define la estructura, los tipos de datos y las restricciones de integridad.</p>
+                    
+                    <p><strong>Tipos de Tablas:</strong></p>
+                    <ul>
+                        <li><strong>Tablas de Hechos:</strong> tb_ventas_x_producto y tb_mercado_mensual, estas tablas contienen las métricas primarias: Toneladas vendidas por la empresa (cantdidad_ton) y Toneladas totales del mercado (mercado_mensual_cantidad_tonelada).</li>
+                        <li><strong>Tablas de Dimensiones:</strong> Calendario, tb_clientes, tb_producto, tb_paises, tb_puertos, otras que proveen el contexto para el análisis.</li>
+                    </ul>
+                    
+                    <h4>B. Definición de Relaciones (Claves Primarias y Foráneas)</h4>
+                    <p>Las relaciones se definen siguiendo el estándar del modelado relacional para asegurar la integridad referencial y facilitar la navegación de los datos.</p>
+                    
+                    <ul>
+                        <li><strong>Claves Primarias (PRIMARY KEY):</strong> Se ha definido una clave primaria en cada tabla (ej., [date] en Calendario, [venta_id] en tb_ventas) para garantizar la unicidad de cada registro.</li>
+                        <li><strong>Claves Foráneas (FOREIGN KEY):</strong> Se utilizan para establecer las relaciones y dependencias entre tablas, previniendo datos huérfanos. Por ejemplo, tb_ventas se relaciona con Calendario a través de fecha_de_venta, y tb_ventas_x_producto se relaciona con tb_ventas a través de venta_id.</li>
+                    </ul>
+                    
+                    <h4>C. Inserción de Datos (INSERT INTO)</h4>
+                    <p>Se adjuntan los scripts de inserción de datos (INSERT INTO):</p>
+                    
+                    <ul>
+                        <li><strong>Datos Maestros/Dimensionales:</strong> Scripts de carga inicial para tablas pequeñas y estáticas (ej., tb_tipo_cliente, tb_tipo_colaborador, tb_paises).</li>
+                        <li><strong>Datos Transaccionales/Hechos:</strong> La inserción de los datos transaccionales (tablas tb_ventas_x_producto y tb_mercado_mensual) se gestiona periódicamente mediante la Capa ETL (Microsoft Fabric), la cual carga los datos pre-procesados desde las fuentes de origen.</li>
+                    </ul>
+                    
+                    <h4>Ejemplos de Código SQL:</h4>
+                    
+                    <div class="code-block">
+                        <h5>tb_tipo_cliente:</h5>
+                        <pre><code>
+CREATE TABLE [DVG2].[tb_tipo_cliente](
+    [tipo_cliente_id] [varchar](20) NOT NULL,
+    [tipo_cliente_nombre] [varchar](200) NOT NULL,
+    CONSTRAINT [PK_tb_tipo_cliente] PRIMARY KEY CLUSTERED 
+    (
+        [tipo_cliente_id] ASC
+    )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+                        </code></pre>
+                    </div>
+                    
+                    <div class="code-block">
+                        <h5>tb_tipo_colaborador:</h5>
+                        <pre><code>
+CREATE TABLE [DVG2].[tb_tipo_colaborador](
+    [tipo_colaborador_id] [varchar](20) NOT NULL,
+    [tipo_colaborador_nombre] [varchar](200) NOT NULL,
+    CONSTRAINT [PK_tb_tipo_colaborador] PRIMARY KEY CLUSTERED 
+    (
+        [tipo_colaborador_id] ASC
+    )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+                        </code></pre>
+                    </div>
+                    
+                    <div class="code-block">
+                        <h5>tb_paises:</h5>
+                        <pre><code>
+CREATE TABLE [DVG2].[tb_paises](
+    [pais_id] [varchar](4) NOT NULL,
+    [pais_nombre] [varchar](200) NOT NULL,
+    CONSTRAINT [PK_tb_paises] PRIMARY KEY CLUSTERED 
+    (
+        [pais_id] ASC
+    )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+                        </code></pre>
+                    </div>
+                    
+                    <div class="code-block">
+                        <h5>tb_ventas_x_producto</h5>
+                        <pre><code>
+CREATE TABLE [DVG2].[tb_ventas_x_producto](
+    [ventas_x_producto_id] [varchar](20) NOT NULL,
+    [producto_id] [varchar](20) NULL,
+    [venta_id] [varchar](20) NOT NULL,
+    [cantdidad_ton] [numeric](18, 0) NOT NULL,
+    [precio_x_ton_facturado] [int] NOT NULL,
+    CONSTRAINT [PK_tb_ventas_x_producto] PRIMARY KEY CLUSTERED 
+    (
+        [ventas_x_producto_id] ASC
+    )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [DVG2].[tb_ventas_x_producto] WITH CHECK ADD CONSTRAINT [fk_tb_ventas_x_producto_producto] FOREIGN KEY([producto_id])
+REFERENCES [DVG2].[tb_producto] ([producto_id])
+GO
+
+ALTER TABLE [DVG2].[tb_ventas_x_producto] CHECK CONSTRAINT [fk_tb_ventas_x_producto_producto]
+GO
+
+ALTER TABLE [DVG2].[tb_ventas_x_producto] WITH CHECK ADD CONSTRAINT [fk_tb_ventas_x_producto_venta] FOREIGN KEY([venta_id])
+REFERENCES [DVG2].[tb_ventas] ([venta_id])
+GO
+
+ALTER TABLE [DVG2].[tb_ventas_x_producto] CHECK CONSTRAINT [fk_tb_ventas_x_producto_venta]
+GO
+                        </code></pre>
+                    </div>
+                    
+                    <div class="code-block">
+                        <h5>tb_mercado_mensual</h5>
+                        <pre><code>
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [DVG2].[tb_mercado_mensual](
+    [mercado_mensual_id] [varchar](20) NOT NULL,
+    [mercado_mensual_fecha] [date] NOT NULL,
+    [mercado_mensual_cantidad_tonelada] [decimal](18, 2) NOT NULL,
+    [mercado_mensual_precio_x_ton_prom] [decimal](12, 2) NOT NULL,
+    CONSTRAINT [PK_tb_mercado_mensual] PRIMARY KEY CLUSTERED 
+    (
+        [mercado_mensual_id] ASC
+    )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [DVG2].[tb_mercado_mensual] WITH CHECK ADD CONSTRAINT [FK_tb_mercado_mensual__Calendario] FOREIGN KEY([mercado_mensual_fecha])
+REFERENCES [DVG2].[Calendario] ([date])
+GO
+
+ALTER TABLE [DVG2].[tb_mercado_mensual] CHECK CONSTRAINT [FK_tb_mercado_mensual__Calendario]
+GO
+                        </code></pre>
+                    </div>
+                </div>
+
+                <div class="details-section">
+                    <h3>🔄 CAPA ETL (Extracción, Transformación y Carga)</h3>
+                    <p>Esta capa, gestionada por Microsoft Fabric, es la encargada de garantizar la calidad, consistencia y periodicidad de los datos, calculando la métrica de participación antes de almacenarla.</p>
+                    
+                    <h4>A. Dataflows y Pipelines</h4>
+                    <p>Se utilizan Pipelines y Dataflows de Fabric para orquestar y automatizar el flujo de datos mensual.</p>
+                    
+                    <ul>
+                        <li><strong>Extracción (E):</strong> Se conecta a la Capa de Datos SQL (DVG2) para extraer las transacciones de ventas (tb_ventas_x_producto) y la data de mercado (tb_mercado_mensual) del mes anterior.</li>
+                        <li><strong>Transformación (T) - Llamada a Python:</strong> Invoca un Notebook de Python para ejecutar la lógica de negocio y calcular el KPI de participación (ver sección B).</li>
+                        <li><strong>Carga (L):</strong> Carga los datos transformados (incluyendo el KPI calculado) en el Fabric Data Warehouse.</li>
+                    </ul>
+                    
+                    <h4>B. Automatizaciones en Python (Notebooks)</h4>
+                    <p>Se implementa un Python Notebook dentro de Fabric para la fase crítica de la transformación de datos, asegurando la precisión del benchmarking.</p>
+                    
+                    <div class="code-block">
+                        <h5>Código Fabric:</h5>
+                        <pre><code>
+# ============================================
+# MONITOREO DE INDICADOR PRINCIPAL - CAFÉ ANDINO
+# Sistema Automatizado de Reportes con Envío de Correo - VERSIÓN GMAIL
+# ============================================
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from datetime import datetime, timedelta
+import pandas as pd
+from pyspark.sql.functions import *
+
+# CONFIGURACIÓN DE CORREO GMAIL
+EMAIL_SENDER = "cafeandinoexport@gmail.com"
+EMAIL_PASSWORD = "****" # ✅ Contraseña de aplicación
+EMAIL_RECIPIENT = "cafeandinoexport@gmail.com"
+
+# CONFIGURACIÓN SMTP GMAIL
+SMTP_SERVER = "smtp.gmail.com"
+SMTP_PORT = 587
+
+# ============================================
+# CARGAR DATOS DESDE DVG2 LAKEHOUSE
+# ============================================
+print("📊 Cargando datos desde DVG2 tb_ventas...")
+df = spark.read.format("delta").load("Tables/DVG2 tb_ventas")
+print(f"\n📊 Total de registros: {df.count()}")
+
+# ============================================
+# FUNCIÓN PARA CALCULAR INDICADORES
+# ============================================
+def calcular_indicadores(df_spark):
+    """
+    Calcula los indicadores principales para Café Andino
+    """
+    df = df_spark.toPandas()
+    fecha_actual = datetime.now().strftime("%d/%m/%Y %H:%M")
+    
+    # Métricas principales
+    total_registros = len(df)
+    total_ventas_unicas = df['venta_id'].nunique() if 'venta_id' in df.columns else total_registros
+    total_clientes = df['cliente_id'].nunique() if 'cliente_id' in df.columns else 0
+    total_colaboradores = df['colaborador_id'].nunique() if 'colaborador_id' in df.columns else 0
+    total_brokers = df['broker_aduanero_id'].nunique() if 'broker_aduanero_id' in df.columns else 0
+    
+    # Análisis de fechas
+    if 'fecha_de_venta' in df.columns:
+        df['fecha_de_venta'] = pd.to_datetime(df['fecha_de_venta'])
+        fecha_min = df['fecha_de_venta'].min().strftime("%d/%m/%Y")
+        fecha_max = df['fecha_de_venta'].max().strftime("%d/%m/%Y")
+        
+        # Ventas últimos 30 días
+        fecha_limite = datetime.now() - timedelta(days=30)
+        ventas_recientes = len(df[df['fecha_de_venta'] >= fecha_limite])
+    else:
+        fecha_min = "N/A"
+        fecha_max = "N/A"
+        ventas_recientes = 0
+    
+    metricas = {
+        'total_registros': total_registros,
+        'total_ventas': total_ventas_unicas,
+        'total_clientes': total_clientes,
+        'total_colaboradores': total_colaboradores,
+        'total_brokers': total_brokers,
+        'ventas_ultimos_30_dias': ventas_recientes,
+        'fecha_reporte': fecha_actual,
+        'fecha_min': fecha_min,
+        'fecha_max': fecha_max
+    }
+    
+    return metricas, df
+
+# ============================================
+# GENERAR HTML DEL REPORTE
+# ============================================
+def generar_reporte_html(metricas, df_sample=None):
+    """
+    Genera el HTML del reporte de monitoreo
+    """
+    html = f"""
+    <html>
+    <head>
+    <style>
+    body {{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f5f5f5;
+    }}
+    .header {{
+        background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+        color: white;
+        padding: 30px;
+        text-align: center;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }}
+    .header h1 {{
+        margin: 0;
+        font-size: 32px;
+    }}
+    .header h2 {{
+        margin: 10px 0 0 0;
+        font-size: 20px;
+        font-weight: normal;
+    }}
+    .content {{
+        background-color: white;
+        padding: 30px;
+        margin-top: 20px;
+        border-radius: 15px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }}
+    .metrics-grid {{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin: 20px 0;
+    }}
+    .metric {{
+        background: linear-gradient(135deg, #fff 0%, #f9f9f9 100%);
+        padding: 20px;
+        border-radius: 10px;
+        border-left: 5px solid #8B4513;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }}
+    .metric-title {{
+        font-weight: bold;
+        color: #8B4513;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }}
+    .metric-value {{
+        font-size: 28px;
+        color: #333;
+        font-weight: bold;
+    }}
+    .section-title {{
+        color: #8B4513;
+        font-size: 20px;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #8B4513;
+    }}
+    table {{
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }}
+    th {{
+        background-color: #8B4513;
+        color: white;
+        padding: 12px;
+        text-align: left;
+        font-weight: 600;
+    }}
+    td {{
+        padding: 12px;
+        border-bottom: 1px solid #e0e0e0;
+    }}
+    tr:hover {{
+        background-color: #f5f5f5;
+    }}
+    .footer {{
+        margin-top: 30px;
+        padding: 20px;
+        text-align: center;
+        color: #666;
+        font-size: 13px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+    }}
+    .badge {{
+        display: inline-block;
+        padding: 5px 10px;
+        background-color: #8B4513;
+        color: white;
+        border-radius: 5px;
+        font-size: 12px;
+        margin-top: 5px;
+    }}
+    </style>
+    </head>
+    <body>
+    <div class="header">
+        <h1>☕ CAFÉ ANDINO</h1>
+        <h2>REPORTE EJECUTIVO - MONITOREO DE VENTAS</h2>
+        <div class="badge">SISTEMA AUTOMATIZADO</div>
+    </div>
+    <div class="content">
+        <div class="section-title">📊 INDICADORES PRINCIPALES</div>
+        <div class="metrics-grid">
+            <div class="metric">
+                <div class="metric-title">📅 FECHA DE GENERACIÓN</div>
+                <div class="metric-value" style="font-size: 18px;">{metricas['fecha_reporte']}</div>
+            </div>
+            <div class="metric">
+                <div class="metric-title">📦 TOTAL DE VENTAS</div>
+                <div class="metric-value">{metricas['total_ventas']:,}</div>
+            </div>
+            <div class="metric">
+                <div class="metric-title">👥 CLIENTES ACTIVOS</div>
+                <div class="metric-value">{metricas['total_clientes']:,}</div>
+            </div>
+            <div class="metric">
+                <div class="metric-title">👨‍💼 COLABORADORES</div>
+                <div class="metric-value">{metricas['total_colaboradores']:,}</div>
+            </div>
+            <div class="metric">
+                <div class="metric-title">🚢 BROKERS ADUANEROS</div>
+                <div class="metric-value">{metricas['total_brokers']:,}</div>
+            </div>
+            <div class="metric">
+                <div class="metric-title">📈 VENTAS ÚLTIMOS 30 DÍAS</div>
+                <div class="metric-value">{metricas['ventas_ultimos_30_dias']:,}</div>
+            </div>
+        </div>
+        <div class="section-title">📆 PERIODO DE ANÁLISIS</div>
+        <div class="metrics-grid">
+            <div class="metric">
+                <div class="metric-title">FECHA MÍNIMA</div>
+                <div class="metric-value" style="font-size: 18px;">{metricas['fecha_min']}</div>
+            </div>
+            <div class="metric">
+                <div class="metric-title">FECHA MÁXIMA</div>
+                <div class="metric-value" style="font-size: 18px;">{metricas['fecha_max']}</div>
+            </div>
+        </div>
+    """
+    
+    # Agregar tabla de muestra
+    if df_sample is not None and len(df_sample) > 0:
+        html += """
+        <div class="section-title">📋 MUESTRA DE DATOS RECIENTES</div>
+        <table>
+        <tr>
+        """
+        for col in df_sample.columns:
+            html += f"<th>{col}</th>"
+        html += "</tr>"
+        for _, row in df_sample.head(10).iterrows():
+            html += "<tr>"
+            for col in df_sample.columns:
+                valor = str(row[col])
+                if pd.notna(row[col]) and col == 'fecha_de_venta':
+                    try:
+                        valor = pd.to_datetime(row[col]).strftime("%d/%m/%Y")
+                    except:
+                        pass
+                html += f"<td>{valor}</td>"
+            html += "</tr>"
+        html += "</table>"
+    
+    html += f"""
+    </div>
+    <div class="footer">
+        <p><strong>📧 Contacto:</strong> cafeandinoexport@gmail.com</p>
+        <p><strong>🖥️ Plataforma:</strong> Microsoft Fabric</p>
+        <p><strong>⚡ Generado:</strong> {metricas['fecha_reporte']}</p>
+        <p style="margin-top: 15px; font-size: 11px;">🔒 Este correo es confidencial y puede contener información privilegiada</p>
+    </div>
+    </body>
+    </html>
+    """
+    return html
+
+# ============================================
+# FUNCIÓN PARA ENVIAR CORREO (VERSIÓN GMAIL)
+# ============================================
+def enviar_correo_gmail(subject, html_content):
+    """
+    Envía el correo electrónico con el reporte usando Gmail
+    """
+    try:
+        print("📧 Configurando envío por Gmail...")
+        msg = MIMEMultipart('alternative')
+        msg['From'] = EMAIL_SENDER
+        msg['To'] = EMAIL_RECIPIENT
+        msg['Subject'] = subject
+        
+        html_part = MIMEText(html_content, 'html')
+        msg.attach(html_part)
+        
+        print("🔗 Conectando con servidor Gmail...")
+        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
+        server.ehlo()
+        server.starttls()
+        server.ehlo()
+        
+        print("🔐 Iniciando sesión con App Password...")
+        server.login(EMAIL_SENDER, EMAIL_PASSWORD)
+        
+        print("📤 Enviando correo...")
+        server.send_message(msg)
+        server.quit()
+        
+        print("✅ Correo enviado exitosamente por Gmail")
+        return True
+    except Exception as e:
+        print(f"❌ Error al enviar correo por Gmail: {str(e)}")
+        return False
+
+# ============================================
+# FUNCIÓN PRINCIPAL
+# ============================================
+def ejecutar_monitoreo(df_spark):
+    """
+    Función principal que ejecuta el monitoreo completo
+    """
+    print("\n🚀 Iniciando sistema de monitoreo Café Andino...")
+    print("=" * 60)
+    print("📊 Calculando indicadores...")
+    metricas, df_pandas = calcular_indicadores(df_spark)
+    
+    print("📝 Generando reporte ejecutivo...")
+    html_reporte = generar_reporte_html(metricas, df_pandas)
+    
+    print("📧 Enviando correo por Gmail...")
+    subject = f"☕ Café Andino - Monitoreo Ventas - {metricas['fecha_reporte']}"
+    resultado = enviar_correo_gmail(subject, html_reporte)
+    
+    if resultado:
+        print("=" * 60)
+        print("✅ ¡MONITOREO COMPLETADO EXITOSAMENTE!")
+        print(f"📦 Total de ventas: {metricas['total_ventas']}")
+        print(f"👥 Clientes activos: {metricas['total_clientes']}")
+        print(f"📧 Correo enviado a: {EMAIL_RECIPIENT}")
+        print(f"🔐 Método: Gmail con App Password")
+        print(f"⏰ Fecha: {metricas['fecha_reporte']}")
+    else:
+        print("❌ Hubo un error en el envío del correo")
+    
+    return metricas
+
+# ============================================
+# EJECUTAR MONITOREO
+# ============================================
+print("\n" + "="*60)
+print("☕ SISTEMA DE MONITOREO CAFÉ ANDINO - VERSIÓN GMAIL")
+print("="*60)
+print("📧 Configuración:")
+print(f" • Remitente: {EMAIL_SENDER}")
+print(f" • Destinatario: {EMAIL_RECIPIENT}")
+print(f" • Servidor: {SMTP_SERVER}:{SMTP_PORT}")
+print("="*60)
+
+# Ejecutar monitoreo con los datos cargados
+metricas_finales = ejecutar_monitoreo(df)
+
+print("\n" + "="*60)
+print("🎯 PROCESO FINALIZADO - SISTEMA AUTOMATIZADO LISTO")
+print("="*60)
+                        </code></pre>
+                    </div>
+                </div>
+
+                <div class="details-section">
+                    <h3>🧱 CAPA DE ALMACENAMIENTO (Data Warehouse)</h3>
+                    <p>Esta capa consolida los datos transformados y crea el entorno analítico optimizado para Power BI, siguiendo el diseño del modelo DVG2.</p>
+                    
+                    <h4>A. Modelo de Datos Final</h4>
+                    <p>El Fabric Data Warehouse aloja un modelo dimensional de estrella/copo de nieve optimizado. Las relaciones se establecen con cardinalidad uno a muchos (1:N), asegurando que las dimensiones filtren correctamente a las tablas de hechos:</p>
+                    
+                    <ul>
+                        <li><strong>Centralidad en los Hechos:</strong> La tabla de hechos tb_ventas_x_producto está vinculada a las dimensiones tb_ventas y tb_producto.</li>
+                        <li><strong>Conexión Clave del KPI:</strong> La tabla tb_mercado_mensual se vincula directamente a la tabla Calendario (por mercado_mensual_fecha [date]), permitiendo comparar las ventas de Café Andino con las cifras del mercado peruano en el tiempo.</li>
+                    </ul>
+                    
+                    <h4>B. Medidas Clave Creadas en el Modelo (DAX):</h4>
+                    <p>Se utilizan expresiones DAX (Data Analysis Expressions) para calcular métricas de alto nivel en el modelo, asegurando que todos los reportes usen las mismas definiciones:</p>
+                    
+                    <img src="media/image4.png" alt="Medidas DAX" class="content-image">
+                    
+                    <ul>
+                        <li><strong>KPI - Participación (%):</strong> Fórmula: % de Participacion = DIVIDE(SUM('DVG2 tb_ventas_x_producto'[cantdidad_ton]) , sum('DVG2 tb_mercado_mensual'[mercado_mensual_cantidad_tonelada]))</li>
+                        <li><strong>Total Ventas:</strong> Fórmula: Total Ventas = SUMX('DVG2 tb_ventas_x_producto','DVG2 tb_ventas_x_producto'[cantdidad_ton] * 'DVG2 tb_ventas_x_producto'[precio_x_ton_facturado])</li>
+                    </ul>
+                </div>
+
+                <div class="details-section">
+                    <h3>📊 CAPA DE PRESENTACIÓN (Power BI)</h3>
+                    <p>Esta es la cara visible de todo el esfuerzo de datos, diseñada para entregar inteligencia de posicionamiento accionable a la gerencia de Café Andino Export.</p>
+                    
+                    <h4>A. Business Case (Caso de Negocio)</h4>
+                    <p><strong>Problema Actual (Junio 2025):</strong> El KPI de Participación se encuentra en 34% (Semáforo Amarillo), con una brecha del 5% respecto al objetivo. Esta brecha representa la pérdida potencial de ~800 toneladas mensuales, equivalentes a $3.12 millones en facturación.</p>
+                    
+                    <p><strong>Objetivo Estratégico (Junio 2026):</strong> Alcanzar un valor igual o superior a 39% (Semáforo Verde) en el KPI de participación.</p>
+                    
+                    <p><strong>Estrategia (Costo: $1.661 Millones):</strong> 1. Posicionamiento y Fidelización (Costa Oeste EE. UU. a través de certificaciones y experiencias cafetaleras) y 2. Penetración de Mercado (Plan de Marketing, ferias internacionales y publicidad).</p>
+                    
+                    <p><strong>Impacto Económico (ROI):</strong> Facturación Adicional Estimada: $260 mil/mes al cumplir el objetivo. Retorno Anual Post-Objetivo: $37.44 Millones (durante el primer año).</p>
+                    
+                    <p><strong>Viabilidad de Inversión:</strong> La inversión de $1.661 millones es altamente rentable, evidenciada por un Costo/Beneficio de 1.88 y un Retorno sobre la Inversión (ROI) del 87.84%.</p>
+                    
+                    <p><strong>Justificación:</strong> El crecimiento y el liderazgo solo pueden ser medidos contra el mercado total. Este proyecto resuelve la incapacidad actual de obtener esta métrica de forma automática y oportuna, permitiendo la toma de decisiones estratégicas de precios, volúmenes de producción y enfoque geográfico (EE. UU. Costa Oeste).</p>
+                    
+                    <h4>B. Definición del KPI y Rangos de Desempeño</h4>
+                    
+                    <p><strong>1. KPI:</strong></p>
+                    <p><strong>Nombre del KPI:</strong> Indicador mensual de porcentaje de participación de Café Andino Export SAC en las exportaciones nacionales de la variedad caturra de café arábico, tostado, molido y sin descafeinar</p>
+                    
+                    <p><strong>Definición:</strong> Mide la proporción de las toneladas de café Arábica-Caturra tostado, molido, sin descafeinar, exportadas por Café Andino Export, respecto al total nacional (Perú) para esa misma variedad y presentación, expresado en porcentaje.</p>
+                    
+                    <p><strong>Fórmula:</strong></p>
+                    <img src="media/image5.png" alt="Fórmula del KPI" class="content-image">
+                    
+                    <p><strong>Fuente del Numerador:</strong> tb_ventas_x_producto (columna cantdidad_ton)</p>
+                    <p><strong>Fuente del Denominador:</strong> tb_mercado_mensual (columna mercado_mensual_cantidad_tonelada)</p>
+                    <p><strong>Unidad:</strong> Porcentual.</p>
+                    <p><strong>Periodicidad:</strong> Mensual.</p>
+                    
+                    <p><strong>2. Rangos de Semáforo y Alertas (Alerta Temprana):</strong></p>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Rango de KPI</th>
+                                    <th>Semáforo</th>
+                                    <th>Interpretación</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>>= 39%</td>
+                                    <td>Verde (Meta)</td>
+                                    <td>Liderazgo sólido, superación del objetivo estratégico.</td>
+                                </tr>
+                                <tr>
+                                    <td>>= 30% a <= 39%</td>
+                                    <td>Amarillo (Alerta)</td>
+                                    <td>Nivel actual (34%). Requiere ajustes inmediatos para anular la brecha del 5%.</td>
+                                </tr>
+                                <tr>
+                                    <td><= 30%</td>
+                                    <td>Rojo (Peligro)</td>
+                                    <td>Pérdida de competitividad y amenaza grave de pérdida de participación de mercado.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <p><strong>3. Impacto de Desviación (La Relevancia del 1%)</strong></p>
+                    <p>El reporte visualizará la sensibilidad del KPI con los siguientes datos:</p>
+                    <p>Un aumento de 1% en el KPI representa:</p>
+                    <ul>
+                        <li>Volumen Adicional: 154 toneladas exportadas.</li>
+                        <li>Facturación Adicional: $602 mil dólares al mes.</li>
+                    </ul>
+                    
+                    <h4>C. Dashboard y Reporte</h4>
+                    <p>El archivo de Power BI contendrá <strong>20</strong> vistas principales:</p>
+                    
+                    <p><strong>1. Home (Vista Rápida):</strong> Página de inicio de la solución de Business Intelligence (BI) desarrollada en Power BI para Café Andino Export SAC. Incluye pestañas de Navegación (Menú de Pestañas): La cabecera (en la parte superior) indica las secciones disponibles para la exploración detallada del BI:</p>
+                    <img src="media/image6.png" alt="Home - Vista Rápida" class="content-image">
+                    
+                    <p><strong>2. Business Case:</strong> Descripción breve de la empresa, el objetivo del caso de negocio, la estrategia para alcanzar el objetivo y el costo beneficio de su implementación.</p>
+                    <img src="media/image7.png" alt="Business Case" class="content-image">
+                    
+                    <p><strong>3. Indicator (Indicador):</strong> Visualización que detalla la definición del Indicador, la Fórmula de cálculo, su frecuencia, unidad de medida y su impacto económico.</p>
+                    <img src="media/image8.png" alt="Indicator" class="content-image">
+                    
+                    <p><strong>4. Dashboard Ejecutivo (Vista Rápida):</strong> Visualización Central: Un medidor (gauge) que muestra el KPI - Participación Mensual (%) del último período.</p>
+                    <img src="media/image9.png" alt="Dashboard Ejecutivo" class="content-image">
+                    
+                    <p><strong>5. Report(Reporte):</strong> Esta visualización se centra en el Indicador Mensual de Porcentaje de Participación de Café Andino Export SAC. El gráfico de línea muestra la evolución histórica del porcentaje de participación y establece dos líneas de proyección clave para el futuro:</p>
+                    <img src="media/image10.png" alt="Reporte" class="content-image">
+                    
+                    <p><strong>Question 1:</strong> ¿Qué ESTADO generó el mayor impacto en el valor promedio del INDICADOR MENSUAL DE PORCENTAJE DE PARTICIPACIÓN DE CAFÉ ANDINO EXPORT SAC EN LAS EXPORTACIONES NACIONALES DE LA VARIEDAD CATURRA DE CAFÉ ARÁBICO, TOSTADO, MOLIDO Y SIN DESCAFEINAR, durante el periodo de enero a junio del 2025?:</p>
+                    <img src="media/image11.png" alt="Question 1" class="content-image">
+                    <p>Esta visualización incluye la opción de "Obtener detalles" (Drill through) para obtener detalles del indicador:</p>
+                    <img src="media/image12.png" alt="Drill through Question 1" class="content-image">
+                    <p>Al seleccionar la opción de Obtener detalles" (Drill through), se visualización el detalle:</p>
+                    <img src="media/image13.png" alt="Detalle Question 1" class="content-image">
+                    
+                    <p><strong>Question 2:</strong> ¿Qué TIPO DE CLIENTE, contribuyó más durante el año 2024, en el valor promedio del INDICADOR MENSUAL DE PORCENTAJE DE PARTICIPACIÓN DE CAFÉ ANDINO EXPORT SAC EN LAS EXPORTACIONES NACIONALES DE LA VARIEDAD CATURRA DE CAFÉ ARÁBICO, TOSTADO, MOLIDO Y SIN DESCAFEINAR de la empresa Café Andino Export SAC?:</p>
+                    <img src="media/image14.png" alt="Question 2" class="content-image">
+                    <p>Esta visualización incluye la opción de "Obtener detalles" (Drill through) para obtener detalles del indicador:</p>
+                    <img src="media/image15.png" alt="Drill through Question 2" class="content-image">
+                    <p>Al seleccionar la opción de Obtener detalles" (Drill through), se visualización el detalle:</p>
+                    <img src="media/image16.png" alt="Detalle Question 2" class="content-image">
+                    
+                    <p><strong>Question 3:</strong> ¿Qué PUERTO DE DESEMBARQUE contribuyó más al INDICADOR MENSUAL DE PORCENTAJE DE PARTICIPACIÓN DE CAFÉ ANDINO EXPORT SAC EN LAS EXPORTACIONES NACIONALES DE LA VARIEDAD CATURRA DE CAFÉ ARÁBICO, TOSTADO, MOLIDO Y SIN DESCAFEINAR durante el el mes de febrero del año 2025?.</p>
+                    <img src="media/image17.png" alt="Question 3" class="content-image">
+                    <p>Esta visualización incluye la opción de "Obtener detalles" (Drill through) para obtener detalles del indicador:</p>
+                    <img src="media/image18.png" alt="Drill through Question 3" class="content-image">
+                    <p>Al seleccionar la opción de Obtener detalles" (Drill through), se visualización el detalle:</p>
+                    <img src="media/image19.png" alt="Detalle Question 3" class="content-image">
+                    
+                    <p><strong>Question 4:</strong> ¿Qué PROVEEDOR contribuyó más durante el primer semestre del año 2025 en el valor promedio del INDICADOR MENSUAL DE PORCENTAJE DE PARTICIPACIÓN DE CAFÉ ANDINO EXPORT SAC EN LAS EXPORTACIONES NACIONALES DE LA VARIEDAD CATURRA DE CAFÉ ARÁBICO, TOSTADO, MOLIDO Y SIN DESCAFEINAR?.</p>
+                    <img src="media/image20.png" alt="Question 4" class="content-image">
+                    <p>Esta visualización incluye la opción de "Obtener detalles" (Drill through) para obtener detalles del indicador:</p>
+                    <img src="media/image21.png" alt="Drill through Question 4" class="content-image">
+                    <p>Al seleccionar la opción de Obtener detalles" (Drill through), se visualización el detalle:</p>
+                    <img src="media/image22.png" alt="Detalle Question 4" class="content-image">
+                    
+                    <p><strong>Question 5:</strong> ¿Qué BROKER ADUANERO contribuyó en mayor medida al INDICADOR MENSUAL DE PORCENTAJE DE PARTICIPACIÓN DE CAFÉ ANDINO EXPORT SAC EN LAS EXPORTACIONES NACIONALES DE LA VARIEDAD CATURRA DE CAFÉ ARÁBICO, TOSTADO, MOLIDO Y SIN DESCAFEINAR durante el mes de JUNIO del 2025?.</p>
+                    <img src="media/image23.png" alt="Question 5" class="content-image">
+                    <p>Esta visualización incluye la opción de "Obtener detalles" (Drill through) para obtener detalles del indicador:</p>
+                    <img src="media/image24.png" alt="Drill through Question 5" class="content-image">
+                    <p>Al seleccionar la opción de Obtener detalles" (Drill through), se visualización el detalle:</p>
+                    <img src="media/image25.png" alt="Detalle Question 5" class="content-image">
+                    
+                    <p><strong>Question 6:</strong> Cuál es el TIPO DE COLABORADOR que, durante el periodo de Enero a Junio del 2025 impactó en mayor medida en el valor promedio al INDICADOR MENSUAL DE PORCENTAJE DE PARTICIPACIÓN DE CAFÉ ANDINO EXPORT SAC EN LAS EXPORTACIONES NACIONALES DE LA VARIEDAD CATURRA DE CAFÉ ARÁBICO, TOSTADO, MOLIDO Y SIN DESCAFEINAR?:</p>
+                    <img src="media/image26.png" alt="Question 6" class="content-image">
+                    <p>Esta visualización incluye la opción de "Obtener detalles" (Drill through) para obtener detalles del indicador:</p>
+                    <img src="media/image27.png" alt="Drill through Question 6" class="content-image">
+                    <p>Al seleccionar la opción de Obtener detalles" (Drill through), se visualización el detalle:</p>
+                    <img src="media/image28.png" alt="Detalle Question 6" class="content-image">
+                    
+                    <p><strong>Question 7:</strong> ¿Cuál es el top 5 de COLABORADORES que impactaron en mayor medida en el valor promedio del INDICADOR MENSUAL DE PORCENTAJE DE PARTICIPACIÓN DE CAFÉ ANDINO EXPORT SAC EN LAS EXPORTACIONES NACIONALES DE LA VARIEDAD CATURRA DE CAFÉ ARÁBICO, TOSTADO, MOLIDO Y SIN DESCAFEINAR en el periodo de Enero a Junio del 2025?:</p>
+                    <img src="media/image29.png" alt="Question 7" class="content-image">
+                    <p>Esta visualización incluye la opción de "Obtener detalles" (Drill through) para obtener detalles del indicador:</p>
+                    <img src="media/image30.png" alt="Drill through Question 7" class="content-image">
+                    <p>Al seleccionar la opción de Obtener detalles" (Drill through), se visualización el detalle:</p>
+                    <img src="media/image31.png" alt="Detalle Question 7" class="content-image">
+                    
+                    <p><strong>Question 8:</strong> ¿Cuál es el top 3 de PROVEEDORES DE ENVIO que impactaron en mayor medida en el valor promedio del INDICADOR MENSUAL DE PORCENTAJE DE PARTICIPACIÓN DE CAFÉ ANDINO EXPORT SAC EN LAS EXPORTACIONES NACIONALES DE LA VARIEDAD CATURRA DE CAFÉ ARÁBICO, TOSTADO, MOLIDO Y SIN DESCAFEINAR en el 2024?</p>
+                    <img src="media/image32.png" alt="Question 8" class="content-image">
+                    <p>Esta visualización incluye la opción de "Obtener detalles" (Drill through) para obtener detalles del indicador:</p>
+                    <img src="media/image33.png" alt="Drill through Question 8" class="content-image">
+                    <p>Al seleccionar la opción de Obtener detalles" (Drill through), se visualización el detalle:</p>
+                    <img src="media/image34.png" alt="Detalle Question 8" class="content-image">
+                    
+                    <p><strong>Question 9:</strong> ¿Cuál es el trimestre del año 2024 que registró el mayor valor promedio del INDICADOR MENSUAL DE PORCENTAJE DE PARTICIPACIÓN DE CAFÉ ANDINO EXPORT SAC EN LAS EXPORTACIONES NACIONALES DE LA VARIEDAD CATURRA DE CAFÉ ARÁBICO, TOSTADO, MOLIDO Y SIN DESCAFEINAR?.</p>
+                    <img src="media/image35.png" alt="Question 9" class="content-image">
+                    <p>Esta visualización incluye la opción de "Obtener detalles" (Drill through) para obtener detalles del indicador:</p>
+                    <img src="media/image36.png" alt="Drill through Question 9" class="content-image">
+                    <p>Al seleccionar la opción de Obtener detalles" (Drill through), se visualización el detalle:</p>
+                    <img src="media/image37.png" alt="Detalle Question 9" class="content-image">
+                    
+                    <p><strong>Question 10:</strong> ¿En qué MES del año 2023 se registró el máximo valor del INDICADOR MENSUAL DE PORCENTAJE DE PARTICIPACIÓN DE CAFÉ ANDINO EXPORT SAC EN LAS EXPORTACIONES NACIONALES DE LA VARIEDAD CATURRA DE CAFÉ ARÁBICO, TOSTADO, MOLIDO Y SIN DESCAFEINAR?.</p>
+                    <img src="media/image38.png" alt="Question 10" class="content-image">
+                    <p>Esta visualización incluye la opción de "Obtener detalles" (Drill through) para obtener detalles del indicador:</p>
+                    <img src="media/image39.png" alt="Drill through Question 10" class="content-image">
+                    <p>Al seleccionar la opción de Obtener detalles" (Drill through), se visualización el detalle:</p>
+                    <img src="media/image40.png" alt="Detalle Question 10" class="content-image">
+                    
+                    <p><strong>Question 11:</strong> ¿Qué PAÍS generó LA MAYOR SUMATORIA para el INDICADOR MENSUAL DE CANTIDAD DE TONELADAS EXPORTADAS POR CAFÉ ANDINO EXPORT SAC EN LAS EXPORTACIONES NACIONALES DE LA VARIEDAD CATURRA DE CAFÉ ARÁBICO, TOSTADO, MOLIDO Y SIN DESCAFEINAR, durante el periodo ENERO a JUNIO del 2025?.</p>
+                    <img src="media/image41.png" alt="Question 11" class="content-image">
+                    <p>Esta visualización incluye la opción de "Obtener detalles" (Drill through) para obtener detalles del indicador:</p>
+                    <img src="media/image42.png" alt="Drill through Question 11" class="content-image">
+                    <p>Al seleccionar la opción de Obtener detalles" (Drill through), se visualización el detalle:</p>
+                    <img src="media/image43.png" alt="Detalle Question 11" class="content-image">
+                    
+                    <p><strong>Question 12:</strong> ¿Cuál es el puerto que presenta la mayor evolución promedio anual del monto total de ventas (USD) de Café Andino Export SAC para la variedad Caturra de café arábico, tostado, molido y sin descafeinar durante el periodo 2023--2025?.</p>
+                    <img src="media/image44.png" alt="Question 12" class="content-image">
+                    <p>Esta visualización incluye la opción de "Obtener detalles" (Drill through) para obtener detalles del indicador:</p>
+                    <img src="media/image45.png" alt="Drill through Question 12" class="content-image">
+                    <p>Al seleccionar la opción de Obtener detalles" (Drill through), se visualización el detalle:</p>
+                    <img src="media/image46.png" alt="Detalle Question 12" class="content-image">
+                    
+                    <p><strong>Question 13:</strong> ¿Qué factores tienen mayor influencia en el aumento de la sumatoria del INDICADOR MENSUAL DE TONELADAS EXPORTADAS de Café Andino Export SAC durante el PRIMER SEMESTRE DE 2025 para la variedad Caturra de café arábico, tostado, molido y sin descafeinar?.</p>
+                    <img src="media/image47.png" alt="Question 13" class="content-image">
+                    <p>Esta visualización incluye la opción de "Navegación entre páginas" (empleando la forma de flecha y activando la opción de acción) para obtener detalles del indicador:</p>
+                    <img src="media/image48.png" alt="Navegación Question 13" class="content-image">
+                    <p>Al seleccionar la flecha para la navegación entre páginas se visualización el detalle:</p>
+                    <img src="media/image49.png" alt="Detalle Question 13" class="content-image">
+                    
+                    <p><strong>Question 14:</strong> ¿Qué relación existe entre la CANTIDAD EXPORTADA (ton) y el COSTO DE ENVÍO en las exportaciones nacionales de CAFÉ ANDINO EXPORT SAC de la variedad Caturra de café arábico tostado, molido y sin descafeinar durante 2024?.</p>
+                    <img src="media/image50.png" alt="Question 14" class="content-image">
+                    <p>Esta visualización incluye la opción de "Obtener detalles" (Drill through) para obtener detalles del indicador:</p>
+                    <img src="media/image51.png" alt="Drill through Question 14" class="content-image">
+                    <p>Al seleccionar la opción de Obtener detalles" (Drill through), se visualización el detalle:</p>
+                    <img src="media/image52.png" alt="Detalle Question 14" class="content-image">
+                    
+                    <p><strong>Question 15:</strong> ¿Cómo se distribuye, en términos porcentuales, el valor total del INDICADOR MENSUAL DEL MONTO TOTAL DE VENTAS DE CAFÉ ANDINO EXPORT SAC EN LAS EXPORTACIONES NACIONALES DE LA VARIEDAD CATURRA DE CAFÉ ARÁBICO, TOSTADO, MOLIDO Y SIN DESCAFEINAR por cliente (Periodo: junio 2025)?.</p>
+                    <img src="media/image53.png" alt="Question 15" class="content-image">
+                    <p>Esta visualización incluye la opción de "Obtener detalles" (Drill through) para obtener detalles del indicador:</p>
+                    <img src="media/image54.png" alt="Drill through Question 15" class="content-image">
+                    <p>Al seleccionar la opción de Obtener detalles" (Drill through), se visualización el detalle:</p>
+                    <img src="media/image55.png" alt="Detalle Question 15" class="content-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tech" class="section">
+        <div class="container">
+            <h2 class="section-title">Stack Tecnológico</h2>
+            
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <div class="tech-icon">☁️</div>
+                    <h4>Microsoft Fabric</h4>
+                    <p>Integración, transformación y consolidación de datos (ETL/ELT)</p>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-icon">🐍</div>
+                    <h4>Python</h4>
+                    <p>Notebooks para transformaciones complejas y automatizaciones</p>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-icon">💾</div>
+                    <h4>SQL Database</h4>
+                    <p>Almacenamiento estructurado y confiable en Azure</p>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-icon">📊</div>
+                    <h4>Power BI</h4>
+                    <p>Análisis interactivo y visualizaciones estratégicas</p>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-icon">📐</div>
+                    <h4>DAX</h4>
+                    <p>Medidas y cálculos avanzados para KPIs</p>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-icon">🏢</div>
+                    <h4>Data Warehouse</h4>
+                    <p>Modelo dimensional optimizado para análisis</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="results" class="section">
+        <div class="container">
+            <h2 class="section-title">Resultados Clave</h2>
+            
+            <div class="results-grid">
+                <div class="result-card">
+                    <h4>📈 Monitoreo Estratégico</h4>
+                    <p>Visibilidad del KPI de posicionamiento en tiempo real, permitiendo a la gerencia ajustar estrategias de venta para alcanzar el liderazgo global</p>
+                </div>
+
+                <div class="result-card">
+                    <h4>⚡ Eficiencia Operacional</h4>
+                    <p>Reducción del tiempo de cálculo del indicador mediante procesos ETL automatizados en Microsoft Fabric y Python</p>
+                </div>
+
+                <div class="result-card">
+                    <h4>✅ Calidad de Datos</h4>
+                    <p>Fuente única de verdad con Data Warehouse centralizado, asegurando decisiones basadas en cifras validadas y consistentes</p>
+                </div>
+
+                <div class="result-card">
+                    <h4>🎯 Gestión Ágil</h4>
+                    <p>Capacidad para corregir datos primarios rápidamente, garantizando que el KPI refleje la situación real sin demoras</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 3rem; padding: 2rem; background: white; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                <h3 style="color: #8B4513; margin-bottom: 1rem;">💼 Business Case</h3>
+                <p style="margin-bottom: 1rem;"><strong>Situación Actual (Junio 2025):</strong> KPI en 34% (Semáforo Amarillo)</p>
+                <p style="margin-bottom: 1rem;"><strong>Objetivo (Junio 2026):</strong> Alcanzar 39% (Semáforo Verde)</p>
+                <p style="margin-bottom: 1rem;"><strong>Inversión:</strong> $1.661 millones</p>
+                <p style="margin-bottom: 1rem;"><strong>ROI:</strong> 87.84%</p>
+                <p><strong>Facturación Adicional Estimada:</strong> $260 mil/mes al cumplir el objetivo</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2 class="section-title">Contacto</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">¿Interesado en soluciones de Business Intelligence?</p>
+            
+            <div class="contact-links">
+                <a href="mailto:cafeandinoexport@gmail.com" class="contact-link">
+                    <span>✉️</span>
+                    <span>Email</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Café Andino Export SAC - Business Intelligence Project</p>
+        <p style="margin-top: 0.5rem; opacity: 0.8;">Cajamarca, Perú | Microsoft Fabric + Power BI</p>
+    </footer>
+</body>
+</html>
